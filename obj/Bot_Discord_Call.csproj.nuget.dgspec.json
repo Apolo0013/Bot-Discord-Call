@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot Discord Call\\B.csproj": {}
+    "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot_Discord_Call\\Bot_Discord_Call.csproj": {}
   },
   "projects": {
-    "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot Discord Call\\B.csproj": {
+    "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot_Discord_Call\\Bot_Discord_Call.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot Discord Call\\B.csproj",
-        "projectName": "B",
-        "projectPath": "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot Discord Call\\B.csproj",
+        "projectUniqueName": "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot_Discord_Call\\Bot_Discord_Call.csproj",
+        "projectName": "Bot_Discord_Call",
+        "projectPath": "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot_Discord_Call\\Bot_Discord_Call.csproj",
         "packagesPath": "C:\\Users\\apolo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot Discord Call\\obj\\",
+        "outputPath": "C:\\Users\\apolo\\OneDrive\\Documentos\\Programação\\GitHub\\Bot_Discord_Call\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\apolo\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -50,6 +50,10 @@
             "Discord.Net.WebSocket": {
               "target": "Package",
               "version": "[3.18.0, )"
+            },
+            "DotNetEnv": {
+              "target": "Package",
+              "version": "[3.1.1, )"
             }
           },
           "imports": [
