@@ -20,7 +20,9 @@ namespace Bot.Main
                 GatewayIntents =
                     GatewayIntents.Guilds |
                     GatewayIntents.GuildMessages |
+                    GatewayIntents.GuildMembers | 
                     GatewayIntents.MessageContent |
+                    GatewayIntents.GuildPresences |
                     GatewayIntents.GuildVoiceStates   // ← NECESSÁRIO pra detectar call
             };
 

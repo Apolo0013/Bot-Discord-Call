@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Sora";
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: rgb(41, 34, 49);
+            color: white;
+        }
+
+        .conteiner {
+            border-radius: 3px;
+            min-width: 300px;
+            background: rgb(55, 49, 61);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .campo {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 5px 10px 5px 10px ;
+        }
+
+        .h3-ph {
+            font-size: 25px;
+        }
+
+        .input {
+            width: 100%;
+            height: 30px;
+            border-radius: 5px;
+            background: rgb(128, 115, 142);
+            color: white;
+        }
+
+        .input > p {
+            width: 99%;
+            height: 100%;
+            font-size: 17px;
+            display: flex;
+            padding: 4px;
+            overflow: hidden;
+            align-items: center;
+        }
+
+        .conteiner-info {
+            width: 100%;
+            height: 50%;
+        }
+
+        .conteiner-bar-progresso-level {
+            gap: 5px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+        }
+
+        .bar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            height: 30px;
+            background: rgb(128, 115, 142);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress {
+            width: 50%;
+            height: 100%;
+            background: rgb(218, 73, 54);
+        }
+
+        .text-progress {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        svg {
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="conteiner">
+        <svg>
+            <path d="M0 0 L0 250 L275 250 Q150 250 0 0 Z" fill="#302b32"/>
+        </svg>
+        <div class="conteiner-info">    
+            <div class="campo">
+                <h3 class="h3-ph">Nome</h3>
+                <div class="input" ><p id="nome"></p></div>
+            </div>
+            <div class="campo">
+                <h3 class="h3-ph">Level</h3>
+                <div class="input" ><p id="level"></p></div>
+            </div>
+            <div class="campo">
+                <h3 class="h3-ph">Tempo</h3>
+                <div class="input" ><p id="tempo"></p></div>
+            </div>
+        </div>
+        <div class="conteiner-bar-progresso-level">
+            <h1>Progresso</h1>
+            <span class="bar">
+                <p class="text-progress">50%</p>
+                <span class="progress"></span>
+            </span>
+        </div>
+    </div>
+    <script>
+    </script>
+</body>
+</html>
