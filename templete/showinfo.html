@@ -27,7 +27,8 @@
 
         .conteiner {
             border-radius: 3px;
-            min-width: 300px;
+            height: 300px;
+            aspect-ratio: 1 / 1;
             background: rgb(55, 49, 61);
             display: flex;
             flex-direction: column;
@@ -70,7 +71,6 @@
 
         .conteiner-info {
             width: 100%;
-            height: 50%;
         }
 
         .conteiner-bar-progresso-level {
@@ -94,7 +94,6 @@
         }
 
         .progress {
-            width: 50%;
             height: 100%;
             background: rgb(218, 73, 54);
         }
@@ -112,12 +111,15 @@
             width: 100%;
             height: 100%;
         }
+
+        svg > path {position: relative;}
     </style>
 </head>
 <body>
     <div class="conteiner">
         <svg>
-            <path d="M0 0 L0 250 L275 250 Q150 250 0 0 Z" fill="#302b32"/>
+            <path d="M0 0 L0 300 L300 300 Q150 250 0 0 Z" fill="#302b32" id="2"/>
+            <path d="M0 300 L300 300 L 300 0 Q250 100 0 300 Z"    fill="#5e556299" id="1"/>
         </svg>
         <div class="conteiner-info">    
             <div class="campo">
@@ -141,7 +143,5 @@
             </span>
         </div>
     </div>
-    <script>
-    </script>
 </body>
 </html>

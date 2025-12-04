@@ -2,9 +2,12 @@ using Discord;
 using Discord.WebSocket;
 //Funcao
 using Bot.Funcao.CallCapture;
-using System.Text.RegularExpressions;
+using Bot.GerarImagemBrowser;
 //Bot service
 using Bot.Service;
+using Bot.GlobalVar;
+//Utils
+using Bot.Funcao.Utils_Discord;
 
 
 namespace Bot.Main
@@ -20,7 +23,7 @@ namespace Bot.Main
                 GatewayIntents =
                     GatewayIntents.Guilds |
                     GatewayIntents.GuildMessages |
-                    GatewayIntents.GuildMembers | 
+                    GatewayIntents.GuildMembers |
                     GatewayIntents.MessageContent |
                     GatewayIntents.GuildPresences |
                     GatewayIntents.GuildVoiceStates   // ← NECESSÁRIO pra detectar call
@@ -55,8 +58,20 @@ namespace Bot.Main
             //CMDS
             if (cmd == "!show")
             {
-                string time = CallCapture.ShowTime(msg.Author.Id);
-                await msg.Channel.SendMessageAsync(time);
+                _ = Task.Run(async () =>
+                {
+                    //Verificando se esta registrado ou nao, para registrar e fala se ele estava ou nao.
+                    bool registrado = await UtilsDiscord.VerificarRegistror(msg.Author);
+                    //se ele nao esteve registrado...
+                    if (!registrado) await msg.Channel.SendMessageAsync($"{msg.Author.Mention} Registrando...");
+                    //segue normal
+                    //Pegando o caminho da imagem.
+                    string path = await GerarImagem.SendMessagemShowInfo(Global.DicUserInforCall[msg.Author.Id]);
+                    //mandando a imagem
+                    await msg.Channel.SendFileAsync(path, msg.Author.Mention);
+                    //Deletando a imagem
+                    _ = Task.Run(() => File.Delete(path)); // delentando o arquivo asicrono
+                });
             }
         }
 

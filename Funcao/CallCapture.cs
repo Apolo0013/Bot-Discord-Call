@@ -22,16 +22,7 @@ namespace Bot.Funcao.CallCapture
         {
             //ID do usuario
             ulong userid = user.Id;
-            //Criando a chave caso nao exista
-            if (!Global.DicUserInforCall.ContainsKey(userid))
-            {
-                Global.DicUserInforCall.Add(userid, new UserInforCall()
-                {
-                    Nome = user.GlobalName, // nome dele
-                    MiliSegundos = 0, // o tempo
-                    Level = 1, // comeca no level 1
-                });
-            }
+            await UtilsDiscord.VerificarRegistror(user);
             //Craindo a chave no dicionario Global ondem fica o Stopwatch
             if (!Global.DicUserSw.ContainsKey(userid))
             {
@@ -63,16 +54,21 @@ namespace Bot.Funcao.CallCapture
             //Parar de Conta
             Global.DicUserSw[userid].Sw.Stop();
             //Peger os segundos em call
-            long Miliseg = Global.DicUserSw[userid].Sw.ElapsedMilliseconds;
-            //Colocando os milisegundos no Dicionario Global
-            Global.DicUserInforCall[userid].MiliSegundos += Miliseg; // Somando...
+            long Ms = Global.DicUserSw[userid].Sw.ElapsedMilliseconds;
+            //========================================================
+            //Como os ms na call vamos somar
+            // - somar no TotalMs (ondem vai fica o total de tempo de todas as call)
+            // - somar no Ms (ondem ele aguardar o tempo de cada nivel)
+            // Ex: level1 = 100000 ele vai guardar ate 100k e depois zera.
+            // level2 = 200000 ele vai guardar ate 200k e dedpois zera.
+            Global.DicUserInforCall[userid].TotalMs += Ms; // Somando no total
+            Global.DicUserInforCall[userid].Ms += Ms;
             //Reserta a contagem    
             Global.DicUserSw[userid].Sw.Reset();
             //...
             //Mandando uma messagem para o usuario avisando o usuario quanto tempo ele estava na call.
-            Console.WriteLine(Miliseg);
             string nomecall = Global.DicUserSw[userid].UltimaCall; // a ultima call que o cara esteve ou seja oq ele acabou de sair.
-            string messagem = $"Voce passou {UtilsFN.FormatTime((ulong)Miliseg)}, na call **{nomecall}**";
+            string messagem = $"Voce passou {UtilsFN.FormatTime((ulong)Ms)}, na call **{nomecall}**";
             await UtilsDiscord.SendMessagemDM(userid, messagem);
         }
 
@@ -80,8 +76,7 @@ namespace Bot.Funcao.CallCapture
         public static string ShowTime(ulong userid)
         {
             //Estou somando a contagem que esta sendo contado com a quantidade ded mili dentro do DicGLobal ondem fica o dados pesistente do user. Assim para aparece realmente que esta contando. Mas so conta quando ele sair da call memo o.
-
-            ulong ms = (ulong)(Global.DicUserInforCall[userid].MiliSegundos + Global.DicUserSw[userid].Sw.ElapsedMilliseconds);
+            ulong ms = (ulong)(Global.DicUserInforCall[userid].TotalMs + Global.DicUserSw[userid].Sw.ElapsedMilliseconds);
             return UtilsFN.FormatTime(ms);
         }
     }

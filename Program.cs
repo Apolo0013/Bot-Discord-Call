@@ -3,8 +3,15 @@
 using Bot.Main;
 //Gerado de imagem
 using Bot.GerarImagemBrowser;
+//Outros
 using Bot.Funcao.levelUp;
-
+//Global de variavels
+using Bot.GlobalVar;
+//Utils
+using Bot.Utils;
+//Type
+using Bot.Types;
+using System.Text.Json;
 
 class Program
 {
@@ -17,7 +24,6 @@ class Program
             {
                 //Chamando verificado
                 await LevelUp.VerificarLevelUp();
-                Console.WriteLine("loop");
                 await Task.Delay(5000);
             }
         });
@@ -28,20 +34,25 @@ class Program
         //Token
         Env.Load();
         string? tokenenv = Environment.GetEnvironmentVariable("DISCORD_TOKEN");
-
         if (tokenenv == null) return; // caso ele nao exista
         string token = tokenenv;
+        //=====================================================
         //Inciaciando o browser, para gerar as imagens
         await GerarImagem.Init();
-        await GerarImagem.GerarImagemFN(new()
-        {
-            Nome = "FOdase",
-            Level = 1,
-            MiliSegundos = 80000
-        });
-        return;
         //Inciando o background
         StartBackGround();
+        //=====================================================
+        //Pegando o banco de dados
+        Dictionary<ulong, UserInforCall>? dados = await UtilsFN.Lercallinfojson()!;
+        //Caso ele retorne null, que dizer que algo de errado tem no json
+        if (dados == null)
+        {
+            Console.WriteLine("O bot nao pode se inicializado sem banco de dados, algo deu ruim em pegar.");
+            return;
+        }
+        //Mandando esse valor la pra variavel global.
+        Global.DicUserInforCall = dados;
+        //=====================================================
         //Iniciando Bot
         BotRun Bot = new BotRun();
         await Bot.Run(token);
